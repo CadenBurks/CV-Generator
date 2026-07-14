@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PersonalInformationSection from "./components/PersonalInformationSection";
+import EducationEntry from "./components/EducationEntry";
+import EducationPreview from "./components/EducationPreview";
 import "./styles/App.css";
 
 function App() {
@@ -10,6 +12,47 @@ function App() {
     address: "123 Fascination St",
   });
 
+  const [educationList, setEducationList] = useState([
+    {
+      id: crypto.randomUUID(),
+      school: "Ball So Hard University",
+      degree: "Ph.D. in Mathematics",
+      startDate: "2020-08",
+      endDate: "2028-04",
+    },
+  ]);
+
+  const [activeEntryID, setActiveEntryID] = useState(null);
+
+  function createEmptyEducationEntry() {
+    return {
+      id: crypto.randomUUID(),
+      school: "",
+      degree: "",
+      startDate: "",
+      endDate: "",
+    };
+  }
+
+  function addEducationEntry() {
+    const newEntry = createEmptyEducationEntry();
+    setEducationList([...educationList, newEntry]);
+    setActiveEntryID(newEntry.id);
+  }
+
+  function updateEducationEntry(id, updatedEntry) {
+    setEducationList(
+      educationList.map((entry) =>
+        entry.id === id ? { ...entry, ...updatedEntry } : entry,
+      ),
+    );
+  }
+
+  function deleteEducationEntry(id) {
+    setEducationList(educationList.filter((entry) => entry.id !== id));
+    setActiveEntryID(null);
+  }
+
   const emptyPersonalInfo = {
     name: "",
     phone: "",
@@ -19,6 +62,7 @@ function App() {
 
   function clearAll() {
     setPersonalInfo(emptyPersonalInfo);
+    setEducationList([]);
   }
 
   return (
@@ -28,6 +72,7 @@ function App() {
           Clear
         </button>
         <form className="personal-info-form">
+          <h1>Personal Information</h1>
           <div className="input-container">
             <label htmlFor="full-name">Full Name</label>
             <input
@@ -80,11 +125,32 @@ function App() {
             />
           </div>
         </form>
+        <div className="education-entries">
+          <h1>Education</h1>
+          {educationList.map((entry) => (
+            <EducationPreview
+              key={entry.id}
+              entry={entry}
+              isActive={activeEntryID === entry.id}
+              onActivate={() => setActiveEntryID(entry.id)}
+              onCancel={() => setActiveEntryID(null)}
+              onUpdate={updateEducationEntry}
+              onDelete={deleteEducationEntry}
+            />
+          ))}
+          <button className="add-education" onClick={addEducationEntry}>
+            +
+          </button>
+        </div>
       </div>
+
       <div className="cv-section">
         <PersonalInformationSection info={personalInfo} />
         <div className="education-section">
           <h2>Education</h2>
+          {educationList.map((entry) => (
+            <EducationEntry key={entry.id} entry={entry} />
+          ))}
         </div>
         <div className="experience-section">
           <h2>Experience</h2>
