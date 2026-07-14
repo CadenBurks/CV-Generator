@@ -1,122 +1,97 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { useState } from "react";
+import PersonalInformationSection from "./components/PersonalInformationSection";
+import "./styles/App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [personalInfo, setPersonalInfo] = useState({
+    name: "John Doe",
+    phone: "123-123-1234",
+    email: "johndoe@email.com",
+    address: "123 Fascination St",
+  });
+
+  const emptyPersonalInfo = {
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+  };
+
+  function clearAll() {
+    setPersonalInfo(emptyPersonalInfo);
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
+    <main>
+      <div className="edit-section">
+        <button className="clear-all" onClick={clearAll}>
+          Clear
         </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <form className="personal-info-form">
+          <div className="input-container">
+            <label htmlFor="full-name">Full Name</label>
+            <input
+              type="text"
+              id="full-name"
+              placeholder="First and last name"
+              value={personalInfo.name}
+              onChange={(event) =>
+                setPersonalInfo({ ...personalInfo, name: event.target.value })
+              }
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="text"
+              id="phone"
+              placeholder="XXX-XXX-XXXX"
+              value={personalInfo.phone}
+              onChange={(event) =>
+                setPersonalInfo({ ...personalInfo, phone: event.target.value })
+              }
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="email">Email Address</label>
+            <input
+              type="text"
+              id="email"
+              placeholder="name@example.com"
+              value={personalInfo.email}
+              onChange={(event) =>
+                setPersonalInfo({ ...personalInfo, email: event.target.value })
+              }
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="address">Location</label>
+            <input
+              type="text"
+              id="address"
+              placeholder="123 ABC Street"
+              value={personalInfo.address}
+              onChange={(event) =>
+                setPersonalInfo({
+                  ...personalInfo,
+                  address: event.target.value,
+                })
+              }
+            />
+          </div>
+        </form>
+      </div>
+      <div className="cv-section">
+        <PersonalInformationSection info={personalInfo} />
+        <div className="education-section">
+          <h2>Education</h2>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
+        <div className="experience-section">
+          <h2>Experience</h2>
         </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      </div>
+    </main>
+  );
 }
 
-export default App
+export default App;
