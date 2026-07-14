@@ -6,9 +6,9 @@ function ExperienceEntry({ entry }) {
         <div>{entry.endDate}</div>
       </div>
       <div className="experience-info">
-        <div>{entry.company}</div>
-        <div>{entry.position}</div>
-        <div>{entry.desc}</div>
+        <div className="company-name">{entry.company}</div>
+        <div className="job-position">{entry.position}</div>
+        <div className="job-description">{entry.desc}</div>
       </div>
     </div>
   );

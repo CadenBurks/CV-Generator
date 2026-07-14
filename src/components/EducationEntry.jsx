@@ -6,8 +6,8 @@ function EducationEntry({ entry }) {
         <div>{entry.endDate}</div>
       </div>
       <div className="school-info">
-        <div>{entry.school}</div>
-        <div>{entry.degree}</div>
+        <div className="school-name">{entry.school}</div>
+        <div className="school-degree">{entry.degree}</div>
       </div>
     </div>
   );

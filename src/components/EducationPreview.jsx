@@ -28,6 +28,7 @@ function EducationPreview({
             onChange={(event) =>
               setDraft({ ...draft, school: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -39,6 +40,7 @@ function EducationPreview({
             onChange={(event) =>
               setDraft({ ...draft, degree: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -50,6 +52,7 @@ function EducationPreview({
             onChange={(event) =>
               setDraft({ ...draft, startDate: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -61,6 +64,7 @@ function EducationPreview({
             onChange={(event) =>
               setDraft({ ...draft, endDate: event.target.value })
             }
+            required
           />
         </div>
         <div className="buttons">

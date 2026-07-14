@@ -28,6 +28,7 @@ function ExperiencePreview({
             onChange={(event) =>
               setDraft({ ...draft, company: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -39,6 +40,7 @@ function ExperiencePreview({
             onChange={(event) =>
               setDraft({ ...draft, position: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -61,6 +63,7 @@ function ExperiencePreview({
             onChange={(event) =>
               setDraft({ ...draft, startDate: event.target.value })
             }
+            required
           />
         </div>
         <div className="input-container">
@@ -72,6 +75,7 @@ function ExperiencePreview({
             onChange={(event) =>
               setDraft({ ...draft, endDate: event.target.value })
             }
+            required
           />
         </div>
         <div className="buttons">

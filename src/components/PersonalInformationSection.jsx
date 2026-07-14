@@ -1,10 +1,12 @@
 function PersonalInformationSection({ info }) {
   return (
     <div className="personal-information">
-      <div>{info.name}</div>
-      <div>{info.phone}</div>
-      <div>{info.email}</div>
-      <div>{info.address}</div>
+      <div className="personal-name">{info.name}</div>
+      <div className="personal-contact">
+        <span>{info.phone}</span>
+        <span>{info.email}</span>
+        <span>{info.address}</span>
+      </div>
     </div>
   );
 }

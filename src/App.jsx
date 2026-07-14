@@ -115,7 +115,7 @@ function App() {
     <main>
       <div className="edit-section">
         <button className="clear-all" onClick={clearAll}>
-          Clear
+          Clear Resume
         </button>
         <form className="personal-info-form">
           <h1>Personal Information</h1>
