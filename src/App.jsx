@@ -2,6 +2,8 @@ import { useState } from "react";
 import PersonalInformationSection from "./components/PersonalInformationSection";
 import EducationEntry from "./components/EducationEntry";
 import EducationPreview from "./components/EducationPreview";
+import ExperienceEntry from "./components/ExperienceEntry";
+import ExperiencePreview from "./components/ExperiencePreview";
 import "./styles/App.css";
 
 function App() {
@@ -22,7 +24,20 @@ function App() {
     },
   ]);
 
-  const [activeEntryID, setActiveEntryID] = useState(null);
+  const [activeEducationEntryID, setActiveEducationEntryID] = useState(null);
+
+  const [experienceList, setExperienceList] = useState([
+    {
+      id: crypto.randomUUID(),
+      company: "Company",
+      position: "Employee",
+      desc: "I worked as an Employee at Company.",
+      startDate: "2024-08",
+      endDate: "2024-12",
+    },
+  ]);
+
+  const [activeExperienceEntryID, setActiveExperienceEntryID] = useState(null);
 
   function createEmptyEducationEntry() {
     return {
@@ -37,7 +52,7 @@ function App() {
   function addEducationEntry() {
     const newEntry = createEmptyEducationEntry();
     setEducationList([...educationList, newEntry]);
-    setActiveEntryID(newEntry.id);
+    setActiveEducationEntryID(newEntry.id);
   }
 
   function updateEducationEntry(id, updatedEntry) {
@@ -50,7 +65,37 @@ function App() {
 
   function deleteEducationEntry(id) {
     setEducationList(educationList.filter((entry) => entry.id !== id));
-    setActiveEntryID(null);
+    setActiveEducationEntryID(null);
+  }
+
+  function createEmptyExperienceEntry() {
+    return {
+      id: crypto.randomUUID(),
+      company: "",
+      position: "",
+      desc: "",
+      startDate: "",
+      endDate: "",
+    };
+  }
+
+  function addExperienceEntry() {
+    const newEntry = createEmptyExperienceEntry();
+    setExperienceList([...experienceList, newEntry]);
+    setActiveExperienceEntryID(newEntry.id);
+  }
+
+  function updateExperienceEntry(id, updatedEntry) {
+    setExperienceList(
+      experienceList.map((entry) =>
+        entry.id === id ? { ...entry, ...updatedEntry } : entry,
+      ),
+    );
+  }
+
+  function deleteExperienceEntry(id) {
+    setExperienceList(experienceList.filter((entry) => entry.id !== id));
+    setActiveExperienceEntryID(null);
   }
 
   const emptyPersonalInfo = {
@@ -63,6 +108,7 @@ function App() {
   function clearAll() {
     setPersonalInfo(emptyPersonalInfo);
     setEducationList([]);
+    setExperienceList([]);
   }
 
   return (
@@ -131,14 +177,31 @@ function App() {
             <EducationPreview
               key={entry.id}
               entry={entry}
-              isActive={activeEntryID === entry.id}
-              onActivate={() => setActiveEntryID(entry.id)}
-              onCancel={() => setActiveEntryID(null)}
+              isActive={activeEducationEntryID === entry.id}
+              onActivate={() => setActiveEducationEntryID(entry.id)}
+              onCancel={() => setActiveEducationEntryID(null)}
               onUpdate={updateEducationEntry}
               onDelete={deleteEducationEntry}
             />
           ))}
           <button className="add-education" onClick={addEducationEntry}>
+            +
+          </button>
+        </div>
+        <div className="experience-entries">
+          <h1>Experience</h1>
+          {experienceList.map((entry) => (
+            <ExperiencePreview
+              key={entry.id}
+              entry={entry}
+              isActive={activeExperienceEntryID === entry.id}
+              onActivate={() => setActiveExperienceEntryID(entry.id)}
+              onCancel={() => setActiveExperienceEntryID(null)}
+              onUpdate={updateExperienceEntry}
+              onDelete={deleteExperienceEntry}
+            />
+          ))}
+          <button className="add-experience" onClick={addExperienceEntry}>
             +
           </button>
         </div>
@@ -154,6 +217,9 @@ function App() {
         </div>
         <div className="experience-section">
           <h2>Experience</h2>
+          {experienceList.map((entry) => (
+            <ExperienceEntry key={entry.id} entry={entry} />
+          ))}
         </div>
       </div>
     </main>
